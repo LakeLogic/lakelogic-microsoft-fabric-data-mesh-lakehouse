@@ -1,0 +1,76 @@
+version: 1.0.0
+info:
+  title: "Bronze — Checkr Driver Licences Unstructured"
+  table_name: "{bronze_layer}_{system}_driver_licences"
+  description: "Extracting driver details from simulated raw PDF documents using pdfplumber regex."
+  target_layer: bronze
+  domain: operations
+  system: checkr
+
+dataset: "driver_licences"
+
+source:
+  type: landing
+  # PDF sources are discovered by a Python-side glob (pdfplumber runs on the
+  # driver), NOT by Spark. Spark resolves the relative "Files/..." landing_root
+  # against OneLake, but Python glob resolves it against the notebook CWD (not
+  # the lakehouse mount) → 0 files matched even though the PDFs are present.
+  # Prefix the OneLake local-mount root so the Python file scan finds them.
+  # ({landing_root} → "Files/landing_operations/checkr"; mount → "/lakehouse/default".)
+  # This is Fabric-specific and only needed for file/PDF sources; CSV contracts
+  # keep the plain relative landing_root because Spark reads them natively.
+  path: "/lakehouse/default/{landing_root}/driver_licences/**/*.pdf"
+  format: pdf
+  # Full load: re-extract every licence PDF each run. The demo regenerates its
+  # test data between runs, which leaves an incremental high-watermark ahead of
+  # the freshly-written PDFs → the source scan returns `no_new_data` and the
+  # table stays empty. At demo scale (~30 PDFs) re-extraction is trivial, so
+  # `full` is the robust choice. (For a real, ever-growing licence corpus,
+  # `incremental` is correct — but then don't regenerate the landing zone.)
+  load_mode: full
+
+extraction:
+  provider: pdfplumber
+  # Extraction hints live on model.fields below (extraction_task / extraction_examples).
+  # As of lakelogic 1.36.0 the engine mirrors model.fields → extraction.output_schema on
+  # ALL read paths (incl. spark/UC), so no explicit output_schema is needed here.
+
+model:
+  fields:
+    - name: file_path
+      type: string
+      # implicitly populated by the pipeline
+
+    - name: full_name
+      type: string
+      required: true
+      extraction_task: metadata
+      extraction_examples: ['Name:\s+(.+)']
+      
+    - name: licence_number
+      type: string
+      required: true
+      extraction_task: metadata
+      extraction_examples: ['Licence No:\s+(\S+)']
+      
+    - name: date_of_birth
+      type: date
+      extraction_task: metadata
+      extraction_examples: ['DOB:\s+(\d{4}-\d{2}-\d{2})']
+      
+    - name: expiry_date
+      type: date
+      extraction_task: metadata
+      extraction_examples: ['EXP:\s+(\d{4}-\d{2}-\d{2})']
+      
+    - name: vehicle_classes
+      type: string
+      extraction_task: metadata
+      extraction_examples: ['Classes:\s+(.+)']
+
+quality:
+  row_rules:
+    - not_null: licence_number
+
+lineage:
+  enabled: true

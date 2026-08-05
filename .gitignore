@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.databricks/
+.venv/
+.bundle/
+.pytest_cache/
+
+# secrets / local env
+.env
+*.env
+**/.env
+deploy/.env
+!*.env.example

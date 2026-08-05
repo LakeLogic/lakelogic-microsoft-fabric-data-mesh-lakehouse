@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860" role="img" aria-labelledby="title desc">
+  <title id="title">LakeLogic Databricks data mesh repository layout</title>
+  <desc id="desc">The repository separates deployment code, documentation, domain-owned contracts, validation scripts, CI, and root project files.</desc>
+  <defs>
+    <style>
+      .title{font:700 34px Arial,sans-serif;fill:#172033}.subtitle{font:17px Arial,sans-serif;fill:#5b667a}
+      .folder{fill:#ffffff;stroke:#ccd5e2;stroke-width:2}.accent{fill:#eef9f7;stroke:#159a8c;stroke-width:2}
+      .name{font:700 19px Arial,sans-serif;fill:#172033}.path{font:15px Consolas,monospace;fill:#087f72}
+      .body{font:15px Arial,sans-serif;fill:#526075}.line{stroke:#aab6c8;stroke-width:2;fill:none}
+      .chip{fill:#fff7df;stroke:#dc9a19;stroke-width:1.5}.chiptext{font:700 13px Arial,sans-serif;fill:#8a5a00}
+    </style>
+  </defs>
+  <rect width="1400" height="860" rx="28" fill="#f7f9fc"/>
+  <text x="58" y="64" class="title">How the RideFlow repository is organised</text>
+  <text x="58" y="96" class="subtitle">Platform deployment stays separate from the domain-owned data contracts.</text>
+
+  <path class="line" d="M94 155 V752 M94 188 H142 M94 300 H142 M94 412 H142 M94 636 H142 M94 748 H142"/>
+
+  <g transform="translate(142 135)">
+    <rect class="folder" width="1175" height="82" rx="14"/>
+    <text x="25" y="32" class="path">.github/</text><text x="25" y="59" class="body">Continuous integration. The workflow runs repository validation on every proposed change.</text>
+  </g>
+
+  <g transform="translate(142 247)">
+    <rect class="folder" width="1175" height="106" rx="14"/>
+    <text x="25" y="32" class="path">databricks/</text><text x="25" y="60" class="body">Databricks Asset Bundle, notebooks, job resources, deployment variables, and Windows/Linux deploy scripts.</text>
+    <rect x="780" y="21" width="170" height="30" rx="15" class="chip"/><text x="804" y="41" class="chiptext">DEPLOYMENT CODE</text>
+    <text x="25" y="87" class="body">Run bundle commands from this directory.</text>
+  </g>
+
+  <g transform="translate(142 376)">
+    <rect class="accent" width="1175" height="205" rx="14"/>
+    <text x="25" y="34" class="path">domains_rideflow/</text><text x="25" y="63" class="body">The governed data mesh: one contract tree per business domain and source system.</text>
+    <rect x="780" y="21" width="206" height="30" rx="15" class="chip"/><text x="800" y="41" class="chiptext">DOMAIN-OWNED CONTRACTS</text>
+    <text x="54" y="101" class="path">marketing/</text><text x="245" y="101" class="body">Google Ads, Google Analytics, HubSpot, and Meta Ads</text>
+    <text x="54" y="131" class="path">marketplace/</text><text x="245" y="131" class="body">Trips, riders, drivers, telemetry, pricing, and shared Gold products</text>
+    <text x="54" y="161" class="path">operations/ · payments/ · reference/ · shared/</text>
+    <text x="54" y="189" class="body">Each source system can inherit domain and system defaults, then declare Bronze, Silver, and Gold contracts.</text>
+  </g>
+
+  <g transform="translate(142 611)">
+    <rect class="folder" width="1175" height="82" rx="14"/>
+    <text x="25" y="32" class="path">docs/</text><text x="25" y="59" class="body">Setup alternatives, catalog configuration, manual execution, troubleshooting, screenshots, and architecture diagrams.</text>
+  </g>
+
+  <g transform="translate(142 723)">
+    <rect class="folder" width="1175" height="82" rx="14"/>
+    <text x="25" y="32" class="path">scripts/ · README.md · LICENSE</text>
+    <text x="25" y="59" class="body">Static release validation, the public quickstart, repository guidance, and the Apache 2.0 licence.</text>
+  </g>
+</svg>

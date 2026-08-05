@@ -1,0 +1,43 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# LakeLogic — RideFlow Fabric deployment variables
+# ══════════════════════════════════════════════════════════════════════════════
+# Consumed by fabric/deploy/deploy.py. Everything provisions inside ONE Fabric
+# workspace on a Fabric capacity, in ONE schema-enabled Lakehouse that acts as the
+# "catalog": a schema per domain + a `quarantine` schema, with landing / contracts
+# / logs held in that lakehouse's OneLake Files.
+workspace:
+  # Display name of the target Fabric workspace (created if absent, when a
+  # capacity_id is supplied). Case-sensitive; must be UNIQUE in the tenant — so if
+  # an old workspace of this name still exists (e.g. in another region), either
+  # delete it first or pick a new name here. Fabric CANNOT move items across
+  # regions, so a new region/capacity means a fresh workspace + lakehouse.
+  name: "Lakelogic - dev"
+  # Fabric capacity id (GUID) to bind a NEW workspace to (REQUIRED to create one).
+  # Get the F64 (UK South) id from the Fabric portal ▸ Admin portal ▸ Capacity
+  # settings ▸ <capacity> (GUID is in the page URL), or:
+  #   az login
+  #   TOKEN=$(az account get-access-token --resource https://api.fabric.microsoft.com --query accessToken -o tsv)
+  #   curl -s -H "Authorization: Bearer $TOKEN" https://api.fabric.microsoft.com/v1/capacities
+  capacity_id: ""   # <-- put the F64 UK South capacity GUID here
+
+lakehouse:
+  # The schema-enabled Lakehouse that acts as the catalog. Its name is exported to
+  # the notebooks as FABRIC_DEV_LAKEHOUSE so contracts resolve {catalog}.<domain>.
+  # NOTE: this must be a SCHEMA-ENABLED lakehouse (the medallion uses one schema per
+  # domain). If your existing 'rideflow_dev_demo' was NOT created schema-enabled,
+  # either recreate it with schemas on, or set a new name here so the deploy creates
+  # a fresh schema-enabled one. The deploy verifies this and stops early if not.
+  name: "rideflow_dev_demo"
+  # Schemas created inside it — one per domain (discovered from domains_rideflow/)
+  # plus quarantine. `schema_enabled: true` requires a schema-enabled lakehouse.
+  schema_enabled: true
+
+# Notebooks uploaded (authored as cell-delimited .py, converted to .ipynb on import)
+notebooks:
+  - fabric/notebooks/00_setup.py
+  - fabric/notebooks/test_data_driver.py
+  - fabric/notebooks/pipeline_driver.py
+
+# Bootstrap order the deploy pipeline runs the notebooks in.
+bootstrap:
+  environment: "dev"
