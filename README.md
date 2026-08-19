@@ -1,49 +1,19 @@
-# Multi-Domain Lakehouse on Microsoft Fabric — a Governed Data Mesh Implementation
+**WORKING MICROSOFT FABRIC LAKEHOUSE**
 
-*One Fabric Lakehouse on OneLake, many domain-owned data products — implementing the principles of a
-**data mesh** (domain ownership, data as a product, a self-service platform, and federated
-governance) with data contracts, quarantine and quality gates.*
+# Build and run a governed data mesh on Microsoft Fabric
 
-> **Let every team own its data — without losing control of quality, PII or trust.**
-> A governed data mesh on Microsoft Fabric: domain teams ship their own Bronze/Silver/Gold data
-> products, while one shared layer enforces schema, quality, lineage and PII rules across all of
-> them — natively on OneLake, deployed entirely as code (no click-ops), and orchestrated by one
-> click.
+A working implementation of six domain-owned RideFlow data products and eleven synthetic source
+systems, defined with portable [Open Lakehouse Contracts](https://lakelogic.github.io/open-lakehouse-contract/)
+and executed by [LakeLogic Core](https://pypi.org/project/lakelogic/) through Fabric Spark notebooks,
+OneLake and a one-click mesh orchestrator.
 
-Run a contract-driven Bronze, Silver and Gold lakehouse on Microsoft Fabric.
+**Schema checks · quality gates · quarantine · lineage · PII controls · service levels**
 
-This reference project uses [LakeLogic](https://pypi.org/project/lakelogic/) to
-apply shared data rules across six business domains. It demonstrates data
-contracts, quality gates, quarantine, lineage metadata, service-level checks and
-dependency-aware pipelines.
+> **Reference environment:** RideFlow is a fictional ride-hailing and food-delivery business using
+> synthetic data. This is a community reference from the LakeLogic team, not an official Microsoft
+> product.
 
-The example company, **RideFlow**, is fictional. It represents a ride-hailing and
-food-delivery business.
-
-```text
-RideFlow · one Fabric lakehouse (OneLake) · 6 domains · 11 source systems
-Every domain runs the same medallion — Bronze (raw, all-string, schema-flexible) → Silver (typed, cleaned, transformed, validated) → Gold (products)
-│
-├── Marketplace   (rideflow)                          ← shown expanded as the example
-│   ├── Bronze   raw · all-string · schema-flexible (evolves, keeps everything)
-│   │     driver_profiles · rider_profiles · driver_telemetry · rider_app_events
-│   │     trip_requests · trip_completed · trip_cancellations
-│   ├── Silver   typed, cleaned, deduped, transformed, validated
-│   │     driver_profiles · rider_profiles · trips (joined) · trip_requests
-│   │     driver_telemetry · rider_app_events
-│   └── Gold   business products
-│         dim_driver · dim_driver_scorecard · dim_rider
-│         fact_trip_daily_kpis · fact_rider_daily_metrics · fact_surge_pricing_inference
-│
-├── Payments     (stripe)        →  Bronze → Silver → Gold   ·  charges, payouts
-├── Operations   (checkr · twilio · zendesk)   →  Bronze → Silver → Gold
-├── Marketing    (google_ads · google_analytics · hubspot · meta_ads)   →  Bronze → Silver → Gold
-├── Reference    (internal)      →  Bronze → Silver → Gold   ·  cities, fx rates
-└── Shared       (cross-domain marts)   →  Gold   ·  products that join every domain
-```
-
-> This is a community reference from the LakeLogic team. It is not an official
-> Microsoft product.
+![A RideFlow system running Bronze → Silver → Gold, all activities succeeded](docs/images/fabric_pipeline_run_medallion.png)
 
 ## Project status
 
@@ -85,15 +55,34 @@ unless a policy says otherwise.
 
 ![Fabric Lakehouse on OneLake with per-domain schemas and a Gold dimension with PII redacted](docs/images/fabric_onelake_domains_masked_gold.png)
 
-🟢 **Every data product, the same medallion pattern.** Each system runs Bronze → Silver → Gold as
-one dependency-aware pipeline — reproducible, re-runnable, and green end-to-end.
-
-![A RideFlow system running Bronze → Silver → Gold, all activities succeeded](docs/images/fabric_pipeline_run_medallion.png)
-
 📊 **Proof, not hope.** Every run emits a data-quality summary — which contract, which layer, how
 many rows accepted — so trust in the data is measured, not assumed.
 
 ![LakeLogic pipeline run summary — contract, layer, status and row counts](docs/images/fabric_run_summary_quality.png)
+
+## Reference estate
+
+```text
+RideFlow · one Fabric lakehouse (OneLake) · 6 domains · 11 source systems
+Every domain runs the same medallion — Bronze (raw, all-string, schema-flexible) → Silver (typed, cleaned, transformed, validated) → Gold (products)
+│
+├── Marketplace   (rideflow)                          ← shown expanded as the example
+│   ├── Bronze   raw · all-string · schema-flexible (evolves, keeps everything)
+│   │     driver_profiles · rider_profiles · driver_telemetry · rider_app_events
+│   │     trip_requests · trip_completed · trip_cancellations
+│   ├── Silver   typed, cleaned, deduped, transformed, validated
+│   │     driver_profiles · rider_profiles · trips (joined) · trip_requests
+│   │     driver_telemetry · rider_app_events
+│   └── Gold   business products
+│         dim_driver · dim_driver_scorecard · dim_rider
+│         fact_trip_daily_kpis · fact_rider_daily_metrics · fact_surge_pricing_inference
+│
+├── Payments     (stripe)        →  Bronze → Silver → Gold   ·  charges, payouts
+├── Operations   (checkr · twilio · zendesk)   →  Bronze → Silver → Gold
+├── Marketing    (google_ads · google_analytics · hubspot · meta_ads)   →  Bronze → Silver → Gold
+├── Reference    (internal)      →  Bronze → Silver → Gold   ·  cities, fx rates
+└── Shared       (cross-domain marts)   →  Gold   ·  products that join every domain
+```
 
 ## How the design maps to Fabric
 
