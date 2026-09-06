@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "[dev ll] stripe / stripe — Full Pipeline Orchestrator"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0487b4b3-ed40-56b6-b889-efcc5f06c588"
+  }
+}

@@ -1,0 +1,28 @@
+version: 1.0.0
+info:
+  title: fact_charges
+  target_layer: gold
+  description: 'grain: one row per Stripe charge_id'
+  domain: stripe
+  system: stripe
+model:
+  fields:
+  - name: charge_id
+    type: string
+    required: true
+    description: Grain key of the 'charges' fact.
+  - name: charge_amount_total
+    type: float
+    required: false
+    description: Grain key of the 'charges' fact.
+dataset: fact_charges
+primary_key:
+- charge_id
+materialization:
+  strategy: merge
+  fact:
+    type: aggregate
+source:
+  type: table
+  path: table:{domain_catalog}.{silver_layer}_stripe_charges
+  load_mode: full

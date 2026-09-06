@@ -1,0 +1,43 @@
+version: 1.0.0
+info:
+  title: dim_rideflow_riders
+  target_layer: gold
+  description: 'grain: 1 row per rider, uniquely identified by rider_id'
+  domain: rideflow
+  system: rideflow
+model:
+  fields:
+  - name: rider_id
+    type: string
+    required: true
+    description: Dimension attribute 'rider_id', projected from the 'rideflow_riders'
+      entity.
+  - name: city_code
+    type: string
+    required: false
+    description: Dimension attribute 'city_code', projected from the 'rideflow_riders'
+      entity.
+  - name: created_at
+    type: timestamp
+    required: false
+    description: Dimension attribute 'created_at', projected from the 'rideflow_riders'
+      entity.
+dataset: dim_rideflow_riders
+primary_key:
+- rider_id
+materialization:
+  strategy: scd2
+  scd2:
+    surrogate_key: riders_sk
+    surrogate_key_strategy: hash
+    timestamp_field: source_updated_at
+    effective_from_field: effective_from
+    effective_to_field: effective_to
+    current_flag_field: is_current
+    version_column: version_number
+    track_columns:
+    - city_code
+source:
+  type: table
+  path: table:{domain_catalog}.{silver_layer}_rideflow_riders
+  load_mode: full

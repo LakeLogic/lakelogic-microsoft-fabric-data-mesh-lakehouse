@@ -1,0 +1,59 @@
+version: 1.0.0
+info:
+  title: dim_rideflow_driver_locations
+  target_layer: gold
+  description: 'grain: one row per driver_locations'
+  domain: rideflow
+  system: rideflow
+model:
+  fields:
+  - name: driver_id
+    type: string
+    required: true
+    description: Dimension attribute 'driver_id', projected from the 'rideflow_driver_locations'
+      entity.
+  - name: city_code
+    type: string
+    required: false
+    description: Dimension attribute 'city_code', projected from the 'rideflow_driver_locations'
+      entity.
+  - name: lat
+    type: float
+    required: false
+    pii: true
+    masking: redact
+    classification: gps_coordinate
+    description: Dimension attribute 'lat', projected from the 'rideflow_driver_locations'
+      entity. Personal data (gps_coordinate), masked (redact) by default.
+  - name: lon
+    type: float
+    required: false
+    description: Dimension attribute 'lon', projected from the 'rideflow_driver_locations'
+      entity.
+  - name: speed_kph
+    type: Float64
+    required: false
+    description: Dimension attribute 'speed_kph', projected from the 'rideflow_driver_locations'
+      entity.
+  - name: heading_deg
+    type: Int64
+    required: false
+    description: Dimension attribute 'heading_deg', projected from the 'rideflow_driver_locations'
+      entity.
+  - name: on_trip
+    type: boolean
+    required: false
+    description: Dimension attribute 'on_trip', projected from the 'rideflow_driver_locations'
+      entity.
+  - name: recorded_at
+    type: timestamp
+    required: false
+    description: Dimension attribute 'recorded_at', projected from the 'rideflow_driver_locations'
+      entity.
+dataset: dim_rideflow_driver_locations
+primary_key:
+- driver_id
+source:
+  type: table
+  path: table:{domain_catalog}.{silver_layer}_rideflow_driver_locations
+  load_mode: full

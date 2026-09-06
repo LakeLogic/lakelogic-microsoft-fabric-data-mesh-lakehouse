@@ -1,0 +1,57 @@
+version: 1.0.0
+info:
+  title: rideflow_driver_locations
+  target_layer: bronze
+  domain: rideflow
+  system: rideflow
+model:
+  fields:
+  - name: driver_id
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.driver_locations.
+  - name: city_code
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.driver_locations.
+  - name: lat
+    type: Float64
+    pii: true
+    masking: redact
+    classification: gps_coordinate
+    description: Observed Float64 column ingested from the scanned source landing
+      rideflow (legacy).rideflow.driver_locations. Personal data (gps_coordinate),
+      masked (redact) by default.
+  - name: lon
+    type: Float64
+    description: Observed Float64 column ingested from the scanned source landing
+      rideflow (legacy).rideflow.driver_locations.
+  - name: speed_kph
+    type: Float64
+    description: Observed Float64 column ingested from the scanned source landing
+      rideflow (legacy).rideflow.driver_locations.
+  - name: heading_deg
+    type: Int64
+    description: Observed Int64 column ingested from the scanned source landing rideflow
+      (legacy).rideflow.driver_locations.
+  - name: on_trip
+    type: boolean
+    description: Observed boolean column ingested from the scanned source landing
+      rideflow (legacy).rideflow.driver_locations.
+  - name: recorded_at
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.driver_locations.
+source:
+  type: landing
+  path: '{landing_root}/driver_locations'
+  format: json
+  partition:
+    format: y_%Y/m_%m/d_%d/h_%H
+  load_mode: incremental
+  watermark_strategy: pipeline_log
+primary_key:
+- driver_id
+metadata:
+  run_log_table: '{domain_catalog}._pipeline_run_log'
+dataset: rideflow_driver_locations

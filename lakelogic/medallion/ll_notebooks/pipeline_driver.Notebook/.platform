@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "ll_pipeline_driver"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "bce46013-f05c-58d3-8179-54f1bfddf52d"
+  }
+}

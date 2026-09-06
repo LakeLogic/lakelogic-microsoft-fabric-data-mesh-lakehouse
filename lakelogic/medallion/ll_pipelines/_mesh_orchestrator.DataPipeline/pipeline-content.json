@@ -1,0 +1,85 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "internal - internal",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "376d34ea-36c8-5acd-81d6-5a9fbd8dd3aa",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {}
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "rideflow - rideflow",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "aca2e556-3b57-5dc9-b2df-2207067a06e4",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {}
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "stripe - stripe",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "0487b4b3-ed40-56b6-b889-efcc5f06c588",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {}
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "dependsOn": [
+          {
+            "activity": "internal - internal",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "rideflow - rideflow",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

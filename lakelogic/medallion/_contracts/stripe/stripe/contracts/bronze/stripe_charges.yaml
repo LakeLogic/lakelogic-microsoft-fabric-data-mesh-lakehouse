@@ -1,0 +1,45 @@
+version: 1.0.0
+info:
+  title: stripe_charges
+  target_layer: bronze
+  domain: stripe
+  system: stripe
+model:
+  fields:
+  - name: charge_id
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).stripe.charges.
+  - name: trip_id
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).stripe.charges.
+  - name: amount
+    type: Float64
+    description: Observed Float64 column ingested from the scanned source landing
+      rideflow (legacy).stripe.charges.
+  - name: currency
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).stripe.charges.
+  - name: status
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).stripe.charges.
+  - name: created
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).stripe.charges.
+source:
+  type: landing
+  path: '{landing_root}/charges'
+  format: json
+  partition:
+    format: ingest_dt=%Y-%m-%d
+  load_mode: incremental
+  watermark_strategy: pipeline_log
+primary_key:
+- charge_id
+metadata:
+  run_log_table: '{domain_catalog}._pipeline_run_log'
+dataset: stripe_charges

@@ -1,0 +1,25 @@
+# Validate this repo's LakeLogic contracts on every PR using the OSS `lakelogic`
+# engine's own validator. Structural validation only (no data, no runtime execution)
+# — the same `validate_contract` the Medallion Builder ran before this export.
+name: Validate contracts
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install the OSS lakelogic engine
+        run: pip install lakelogic
+      - name: Validate every contract
+        run: python olc/validate_contracts.py

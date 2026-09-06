@@ -1,0 +1,44 @@
+version: 1.0.0
+info:
+  title: rideflow_riders
+  target_layer: bronze
+  domain: rideflow
+  system: rideflow
+model:
+  fields:
+  - name: rider_id
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.riders.
+  - name: email
+    type: string
+    pii: true
+    masking: hash
+    classification: email
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.riders. Personal data (email), masked (hash) by default.
+  - name: phone
+    type: string
+    pii: true
+    masking: hash
+    classification: phone
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.riders. Personal data (phone), masked (hash) by default.
+  - name: city_code
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.riders.
+  - name: created_at
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.riders.
+source:
+  type: landing
+  path: '{landing_root}/riders'
+  format: parquet
+  partition:
+    format: ingest_dt=%Y-%m-%d
+  load_mode: full
+primary_key:
+- rider_id
+dataset: rideflow_riders

@@ -1,0 +1,32 @@
+version: 1.0.0
+info:
+  title: silver_internal_cities
+  target_layer: silver
+  domain: internal
+  system: internal
+model:
+  fields:
+  - name: city_code
+    type: string
+    required: false
+    description: Column 'city_code' projected from source table 'cities', typed as
+      string.
+  - name: city_name
+    type: string
+    required: false
+    description: Column 'city_name' projected from source table 'cities', typed as
+      string.
+  - name: country
+    type: string
+    required: false
+    description: Column 'country' projected from source table 'cities', typed as string.
+  - name: timezone
+    type: string
+    required: false
+    description: Column 'timezone' projected from source table 'cities', typed as
+      string.
+dataset: silver_internal_cities
+source:
+  type: table
+  path: table:{domain_catalog}.{bronze_layer}_internal_cities
+  load_mode: full

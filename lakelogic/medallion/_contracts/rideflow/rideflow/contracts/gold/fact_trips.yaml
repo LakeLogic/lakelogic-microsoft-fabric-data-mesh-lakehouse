@@ -1,0 +1,40 @@
+version: 1.0.0
+info:
+  title: fact_trips
+  target_layer: gold
+  description: 'grain: one trip per row (trip_id)'
+  domain: rideflow
+  system: rideflow
+model:
+  fields:
+  - name: trip_id
+    type: string
+    required: true
+    description: Grain key of the 'trips' fact.
+  - name: trip_count
+    type: integer
+    required: false
+    description: Grain key of the 'trips' fact.
+  - name: total_fare
+    type: float
+    required: false
+    description: Grain key of the 'trips' fact.
+  - name: total_distance_km
+    type: float
+    required: false
+    description: Grain key of the 'trips' fact.
+  - name: avg_surge_multiplier
+    type: float
+    required: false
+    description: Grain key of the 'trips' fact.
+dataset: fact_trips
+primary_key:
+- trip_id
+materialization:
+  strategy: merge
+  fact:
+    type: aggregate
+source:
+  type: table
+  path: table:{domain_catalog}.{silver_layer}_rideflow_trips
+  load_mode: full

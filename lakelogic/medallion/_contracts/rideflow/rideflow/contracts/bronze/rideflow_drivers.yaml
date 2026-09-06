@@ -1,0 +1,45 @@
+version: 1.0.0
+info:
+  title: rideflow_drivers
+  target_layer: bronze
+  domain: rideflow
+  system: rideflow
+model:
+  fields:
+  - name: driver_id
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.drivers.
+  - name: name
+    type: string
+    pii: true
+    masking: redact
+    classification: person_name
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.drivers. Personal data (person_name), masked (redact) by default.
+  - name: city_code
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.drivers.
+  - name: rating
+    type: Float64
+    description: Observed Float64 column ingested from the scanned source landing
+      rideflow (legacy).rideflow.drivers.
+  - name: status
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.drivers.
+  - name: joined_at
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.drivers.
+source:
+  type: landing
+  path: '{landing_root}/drivers'
+  format: parquet
+  partition:
+    format: snapshot_dt=%Y-%m-%d
+  load_mode: full
+primary_key:
+- driver_id
+dataset: rideflow_drivers

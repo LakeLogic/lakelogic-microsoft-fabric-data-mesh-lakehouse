@@ -1,0 +1,53 @@
+version: 1.0.0
+info:
+  title: rideflow_trips
+  target_layer: bronze
+  domain: rideflow
+  system: rideflow
+model:
+  fields:
+  - name: trip_id
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.trips.
+  - name: driver_id
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.trips.
+  - name: rider_id
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.trips.
+  - name: city_code
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.trips.
+  - name: distance_km
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.trips.
+  - name: fare
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.trips.
+  - name: surge_multiplier
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.trips.
+  - name: started_at
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).rideflow.trips.
+source:
+  type: landing
+  path: '{landing_root}/trips'
+  format: json
+  partition:
+    format: dt=%Y-%m-%d/hr=%H
+  load_mode: incremental
+  watermark_strategy: max_target
+primary_key:
+- trip_id
+metadata:
+  run_log_table: '{domain_catalog}._pipeline_run_log'
+dataset: rideflow_trips

@@ -1,0 +1,158 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "0 Bronze",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "bce46013-f05c-58d3-8179-54f1bfddf52d",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "stripe",
+              "type": "string"
+            },
+            "system": {
+              "value": "stripe",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_legacy_dev_demo_auto_deploy",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": "bronze",
+              "type": "string"
+            },
+            "reset_layers": {
+              "value": "bronze",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "1 Silver",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "bce46013-f05c-58d3-8179-54f1bfddf52d",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "stripe",
+              "type": "string"
+            },
+            "system": {
+              "value": "stripe",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_legacy_dev_demo_auto_deploy",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": "silver",
+              "type": "string"
+            },
+            "reset_layers": {
+              "value": "silver",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": [
+          {
+            "activity": "0 Bronze",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "2 Gold",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "bce46013-f05c-58d3-8179-54f1bfddf52d",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "stripe",
+              "type": "string"
+            },
+            "system": {
+              "value": "stripe",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_legacy_dev_demo_auto_deploy",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": "gold",
+              "type": "string"
+            },
+            "reset_layers": {
+              "value": "gold",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": [
+          {
+            "activity": "1 Silver",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

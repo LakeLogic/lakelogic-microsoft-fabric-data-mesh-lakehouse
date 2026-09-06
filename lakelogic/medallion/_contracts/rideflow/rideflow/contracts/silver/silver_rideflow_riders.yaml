@@ -1,0 +1,52 @@
+version: 1.0.0
+info:
+  title: silver_rideflow_riders
+  target_layer: silver
+  domain: rideflow
+  system: rideflow
+model:
+  fields:
+  - name: rider_id
+    type: string
+    required: false
+    description: Business key 'rider_id' (from source table 'riders'), typed as string.
+  - name: email
+    type: string
+    required: false
+    pii: true
+    masking: hash
+    classification: email
+    description: Column 'email' projected from source table 'riders', typed as string.
+      Personal data (email), masked (hash) by default.
+  - name: phone
+    type: string
+    required: false
+    pii: true
+    masking: hash
+    classification: phone
+    description: Column 'phone' projected from source table 'riders', typed as string.
+      Personal data (phone), masked (hash) by default.
+  - name: city_code
+    type: string
+    required: false
+    description: Column 'city_code' projected from source table 'riders', typed as
+      string.
+  - name: created_at
+    type: timestamp
+    required: false
+    description: Column 'created_at' projected from source table 'riders', typed as
+      timestamp.
+primary_key:
+- rider_id
+transformations:
+- deduplicate:
+    by:
+    - rider_id
+    sort_by:
+    - created_at
+    order: desc
+dataset: silver_rideflow_riders
+source:
+  type: table
+  path: table:{domain_catalog}.{bronze_layer}_rideflow_riders
+  load_mode: full

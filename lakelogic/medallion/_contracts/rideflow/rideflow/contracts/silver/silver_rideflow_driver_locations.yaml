@@ -1,0 +1,65 @@
+version: 1.0.0
+info:
+  title: silver_rideflow_driver_locations
+  target_layer: silver
+  domain: rideflow
+  system: rideflow
+model:
+  fields:
+  - name: driver_id
+    type: string
+    required: false
+    description: Business key 'driver_id' (from source table 'driver_locations'),
+      typed as string.
+  - name: city_code
+    type: string
+    required: false
+    description: Column 'city_code' projected from source table 'driver_locations',
+      typed as string.
+  - name: lat
+    type: float
+    required: false
+    pii: true
+    masking: redact
+    classification: gps_coordinate
+    description: Column 'lat' projected from source table 'driver_locations', typed
+      as float. Personal data (gps_coordinate), masked (redact) by default.
+  - name: lon
+    type: float
+    required: false
+    description: Column 'lon' projected from source table 'driver_locations', typed
+      as float.
+  - name: speed_kph
+    type: Float64
+    required: false
+    description: Column 'speed_kph' projected from source table 'driver_locations',
+      typed as Float64.
+  - name: heading_deg
+    type: Int64
+    required: false
+    description: Column 'heading_deg' projected from source table 'driver_locations',
+      typed as Int64.
+  - name: on_trip
+    type: boolean
+    required: false
+    description: Column 'on_trip' projected from source table 'driver_locations',
+      typed as boolean.
+  - name: recorded_at
+    type: timestamp
+    required: false
+    description: Column 'recorded_at' projected from source table 'driver_locations',
+      typed as timestamp.
+primary_key:
+- driver_id
+transformations:
+- deduplicate:
+    by:
+    - driver_id
+    sort_by:
+    - recorded_at
+    order: desc
+dataset: silver_rideflow_driver_locations
+source:
+  type: table
+  path: table:{domain_catalog}.{bronze_layer}_rideflow_driver_locations
+  load_mode: full

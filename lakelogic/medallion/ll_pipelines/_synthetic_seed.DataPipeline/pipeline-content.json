@@ -1,0 +1,96 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Seed internal - internal",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "f26979ae-81d4-519b-9f82-3fb9a7e65e90",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "internal",
+              "type": "string"
+            },
+            "system": {
+              "value": "internal",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Seed rideflow - rideflow",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "f26979ae-81d4-519b-9f82-3fb9a7e65e90",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "rideflow",
+              "type": "string"
+            },
+            "system": {
+              "value": "rideflow",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Seed stripe - stripe",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "f26979ae-81d4-519b-9f82-3fb9a7e65e90",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "stripe",
+              "type": "string"
+            },
+            "system": {
+              "value": "stripe",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "[dev ll] rideflow / rideflow — Full Pipeline Orchestrator"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "aca2e556-3b57-5dc9-b2df-2207067a06e4"
+  }
+}

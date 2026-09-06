@@ -1,0 +1,59 @@
+version: 1.0.0
+info:
+  title: silver_rideflow_trips
+  target_layer: silver
+  domain: rideflow
+  system: rideflow
+model:
+  fields:
+  - name: trip_id
+    type: string
+    required: false
+    description: Business key 'trip_id' (from source table 'trips'), typed as string.
+  - name: driver_id
+    type: string
+    required: false
+    description: Column 'driver_id' projected from source table 'trips', typed as
+      string.
+  - name: rider_id
+    type: string
+    required: false
+    description: Column 'rider_id' projected from source table 'trips', typed as string.
+  - name: city_code
+    type: string
+    required: false
+    description: Column 'city_code' projected from source table 'trips', typed as
+      string.
+  - name: distance_km
+    type: float
+    required: false
+    description: Column 'distance_km' projected from source table 'trips', typed as
+      float.
+  - name: fare
+    type: float
+    required: false
+    description: Column 'fare' projected from source table 'trips', typed as float.
+  - name: surge_multiplier
+    type: float
+    required: false
+    description: Column 'surge_multiplier' projected from source table 'trips', typed
+      as float.
+  - name: started_at
+    type: timestamp
+    required: false
+    description: Column 'started_at' projected from source table 'trips', typed as
+      timestamp.
+primary_key:
+- trip_id
+transformations:
+- deduplicate:
+    by:
+    - trip_id
+    sort_by:
+    - started_at
+    order: desc
+dataset: silver_rideflow_trips
+source:
+  type: table
+  path: table:{domain_catalog}.{bronze_layer}_rideflow_trips
+  load_mode: full

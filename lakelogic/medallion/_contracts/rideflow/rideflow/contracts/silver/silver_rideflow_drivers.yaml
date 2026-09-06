@@ -1,0 +1,53 @@
+version: 1.0.0
+info:
+  title: silver_rideflow_drivers
+  target_layer: silver
+  domain: rideflow
+  system: rideflow
+model:
+  fields:
+  - name: driver_id
+    type: string
+    required: false
+    description: Business key 'driver_id' (from source table 'drivers'), typed as
+      string.
+  - name: name
+    type: string
+    required: false
+    pii: true
+    masking: redact
+    classification: person_name
+    description: Column 'name' projected from source table 'drivers', typed as string.
+      Personal data (person_name), masked (redact) by default.
+  - name: city_code
+    type: string
+    required: false
+    description: Column 'city_code' projected from source table 'drivers', typed as
+      string.
+  - name: rating
+    type: float
+    required: false
+    description: Column 'rating' projected from source table 'drivers', typed as float.
+  - name: status
+    type: string
+    required: false
+    description: Column 'status' projected from source table 'drivers', typed as string.
+  - name: joined_at
+    type: timestamp
+    required: false
+    description: Column 'joined_at' projected from source table 'drivers', typed as
+      timestamp.
+primary_key:
+- driver_id
+transformations:
+- deduplicate:
+    by:
+    - driver_id
+    sort_by:
+    - joined_at
+    order: desc
+dataset: silver_rideflow_drivers
+source:
+  type: table
+  path: table:{domain_catalog}.{bronze_layer}_rideflow_drivers
+  load_mode: full

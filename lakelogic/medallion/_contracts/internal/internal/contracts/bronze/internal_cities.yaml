@@ -1,0 +1,32 @@
+version: 1.0.0
+info:
+  title: internal_cities
+  target_layer: bronze
+  domain: internal
+  system: internal
+model:
+  fields:
+  - name: city_code
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).internal.cities.
+  - name: city_name
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).internal.cities.
+  - name: country
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).internal.cities.
+  - name: timezone
+    type: string
+    description: Observed string column ingested from the scanned source landing rideflow
+      (legacy).internal.cities.
+source:
+  type: landing
+  path: '{landing_root}/cities'
+  format: csv
+  partition:
+    format: snapshot_dt=%Y-%m-%d
+  load_mode: full
+dataset: internal_cities

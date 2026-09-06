@@ -1,0 +1,50 @@
+version: 1.0.0
+info:
+  title: dim_internal_cities
+  target_layer: gold
+  description: 'grain: city_code (one row per city version for SCD2 history)'
+  domain: internal
+  system: internal
+model:
+  fields:
+  - name: city_code
+    type: string
+    required: true
+    description: Dimension attribute 'city_code', projected from the 'internal_cities'
+      entity.
+  - name: city_name
+    type: string
+    required: false
+    description: Dimension attribute 'city_name', projected from the 'internal_cities'
+      entity.
+  - name: country
+    type: string
+    required: false
+    description: Dimension attribute 'country', projected from the 'internal_cities'
+      entity.
+  - name: timezone
+    type: string
+    required: false
+    description: Dimension attribute 'timezone', projected from the 'internal_cities'
+      entity.
+dataset: dim_internal_cities
+primary_key:
+- city_code
+materialization:
+  strategy: scd2
+  scd2:
+    surrogate_key: cities_sk
+    surrogate_key_strategy: hash
+    timestamp_field: source_updated_at
+    effective_from_field: effective_from
+    effective_to_field: effective_to
+    current_flag_field: is_current
+    version_column: version_number
+    track_columns:
+    - city_name
+    - country
+    - timezone
+source:
+  type: table
+  path: table:{domain_catalog}.{silver_layer}_internal_cities
+  load_mode: full
