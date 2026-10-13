@@ -125,7 +125,7 @@ az login
 
 ### 2. Set the workspace and Lakehouse
 
-Edit [fabric/fabric_variables.yaml](fabric/fabric_variables.yaml):
+Edit [platform/fabric/fabric_variables.yaml](platform/fabric/fabric_variables.yaml):
 
 ```yaml
 workspace:
@@ -171,7 +171,7 @@ To call the Python script directly:
 
 ```bash
 python -m pip install pyyaml requests
-python fabric/deploy/deploy.py
+python platform/fabric/deploy/deploy.py
 ```
 
 ## What the deployment does
@@ -194,13 +194,13 @@ quality gates can stop the run when the configured failure limit is exceeded.
 Create the Fabric resources without running the domain pipelines:
 
 ```bash
-python fabric/deploy/deploy.py --setup-only
+python platform/fabric/deploy/deploy.py --setup-only
 ```
 
 Run one domain and source system:
 
 ```bash
-python fabric/deploy/deploy.py --domain marketplace/rideflow
+python platform/fabric/deploy/deploy.py --domain marketplace/rideflow
 ```
 
 ## Check the result
@@ -225,20 +225,18 @@ failed.
 ## Repository contents
 
 ```text
-domains_rideflow/
+contracts/
   Contracts and configuration owned by each RideFlow domain
 
-fabric/
-  fabric_variables.yaml   Workspace and Lakehouse settings
-  notebooks/              Setup, test-data and pipeline notebooks
-  deploy/                 PowerShell, shell and Python deployment tools
-  pipelines/              Optional Fabric Data Pipeline definition
+platform/
+  fabric/
+    fabric_variables.yaml   Workspace and Lakehouse settings
+    notebooks/              Setup, test-data and pipeline notebooks
+    deploy/                 PowerShell, shell and Python deployment tools
+  scripts/                  Static release checks
 
 docs/
   Architecture and Fabric mapping notes
-
-scripts/
-  Static release checks
 ```
 
 The contract hierarchy is:

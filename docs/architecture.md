@@ -2,7 +2,7 @@
 
 This repo is the Microsoft Fabric sibling of the Databricks reference
 `lakelogic-databricks-data-mesh`. The **business definitions are identical** — the
-same `domains_rideflow/` contract trees — so a domain team can move between the two
+same `contracts/` contract trees — so a domain team can move between the two
 platforms without rewriting contracts. Only the deployment and runtime layer differs.
 
 ## Medallion + quarantine
@@ -66,13 +66,13 @@ Databricks repo is in `_system.yaml`:
 
 ## Deployment flow
 
-`fabric/deploy/deploy.py` uses two Azure-CLI tokens — the Fabric REST API
+`platform/fabric/deploy/deploy.py` uses two Azure-CLI tokens — the Fabric REST API
 (`https://api.fabric.microsoft.com`) and OneLake storage
 (`https://storage.azure.com`):
 
 1. **Provision** — resolve/create the workspace (on the configured capacity) and the
    schema-enabled lakehouse.
-2. **Upload** — push `domains_rideflow/` into OneLake `Files/_contracts` via the DFS
+2. **Upload** — push `contracts/` into OneLake `Files/_contracts` via the DFS
    API (create → append → flush).
 3. **Import** — convert each cell-delimited `.py` notebook to `.ipynb` and create it
    with the lakehouse attached as default.

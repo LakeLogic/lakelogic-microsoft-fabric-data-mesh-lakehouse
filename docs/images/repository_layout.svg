@@ -23,14 +23,14 @@
 
   <g transform="translate(142 247)">
     <rect class="folder" width="1175" height="106" rx="14"/>
-    <text x="25" y="32" class="path">databricks/</text><text x="25" y="60" class="body">Databricks Asset Bundle, notebooks, job resources, deployment variables, and Windows/Linux deploy scripts.</text>
+    <text x="25" y="32" class="path">platform/fabric/</text><text x="25" y="60" class="body">Workspace and Lakehouse settings, setup, test-data and pipeline notebooks, and Windows/Linux deploy scripts.</text>
     <rect x="780" y="21" width="170" height="30" rx="15" class="chip"/><text x="804" y="41" class="chiptext">DEPLOYMENT CODE</text>
     <text x="25" y="87" class="body">Run bundle commands from this directory.</text>
   </g>
 
   <g transform="translate(142 376)">
     <rect class="accent" width="1175" height="205" rx="14"/>
-    <text x="25" y="34" class="path">domains_rideflow/</text><text x="25" y="63" class="body">The governed data mesh: one contract tree per business domain and source system.</text>
+    <text x="25" y="34" class="path">contracts/</text><text x="25" y="63" class="body">The governed data mesh: one contract tree per business domain and source system.</text>
     <rect x="780" y="21" width="206" height="30" rx="15" class="chip"/><text x="800" y="41" class="chiptext">DOMAIN-OWNED CONTRACTS</text>
     <text x="54" y="101" class="path">marketing/</text><text x="245" y="101" class="body">Google Ads, Google Analytics, HubSpot, and Meta Ads</text>
     <text x="54" y="131" class="path">marketplace/</text><text x="245" y="131" class="body">Trips, riders, drivers, telemetry, pricing, and shared Gold products</text>
@@ -45,7 +45,7 @@
 
   <g transform="translate(142 723)">
     <rect class="folder" width="1175" height="82" rx="14"/>
-    <text x="25" y="32" class="path">scripts/ · README.md · LICENSE</text>
+    <text x="25" y="32" class="path">platform/scripts/ · README.md · LICENSE</text>
     <text x="25" y="59" class="body">Static release validation, the public quickstart, repository guidance, and the Apache 2.0 licence.</text>
   </g>
 </svg>
