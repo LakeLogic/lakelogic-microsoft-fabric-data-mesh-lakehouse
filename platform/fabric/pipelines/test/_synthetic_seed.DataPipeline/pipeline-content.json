@@ -1,0 +1,2500 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Seed business - salesforce",
+        "type": "IfCondition",
+        "dependsOn": [],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',business,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',business/salesforce,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate business - salesforce",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "business",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "salesforce",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_business",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 1",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed business - salesforce",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed marketing - google_ads",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 1",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',marketing,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',marketing/google_ads,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate marketing - google_ads",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "marketing",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "google_ads",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_marketing",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 2",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed marketing - google_ads",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed marketing - google_analytics",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 2",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',marketing,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',marketing/google_analytics,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate marketing - google_analytics",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "marketing",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "google_analytics",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_marketing",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 3",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed marketing - google_analytics",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed marketing - hubspot",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 3",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',marketing,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',marketing/hubspot,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate marketing - hubspot",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "marketing",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "hubspot",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_marketing",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 4",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed marketing - hubspot",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed marketing - meta_ads",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 4",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',marketing,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',marketing/meta_ads,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate marketing - meta_ads",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "marketing",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "meta_ads",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_marketing",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 5",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed marketing - meta_ads",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed marketplace - rideflow",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 5",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',marketplace,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',marketplace/rideflow,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate marketplace - rideflow",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "marketplace",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "rideflow",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_marketplace",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 6",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed marketplace - rideflow",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed operations - checkr",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 6",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',operations,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',operations/checkr,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate operations - checkr",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "operations",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "checkr",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_operations",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 7",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed operations - checkr",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed operations - onboarding",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 7",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',operations,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',operations/onboarding,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate operations - onboarding",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "operations",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "onboarding",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_operations",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 8",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed operations - onboarding",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed operations - trust_safety",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 8",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',operations,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',operations/trust_safety,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate operations - trust_safety",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "operations",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "trust_safety",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_operations",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 9",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed operations - trust_safety",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed operations - twilio",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 9",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',operations,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',operations/twilio,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate operations - twilio",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "operations",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "twilio",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_operations",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 10",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed operations - twilio",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed operations - zendesk",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 10",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',operations,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',operations/zendesk,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate operations - zendesk",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "operations",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "zendesk",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_operations",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 11",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed operations - zendesk",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed payments - driver_expenses",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 11",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',payments,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',payments/driver_expenses,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate payments - driver_expenses",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "payments",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "driver_expenses",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_payments",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 12",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed payments - driver_expenses",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed payments - stripe",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 12",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',payments,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',payments/stripe,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate payments - stripe",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "payments",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "stripe",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_payments",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 13",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Seed payments - stripe",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "Seed reference - internal",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "Pause 13",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(and(empty(trim(pipeline().parameters.domains)), empty(trim(pipeline().parameters.systems))), or(contains(concat(',', toLower(replace(pipeline().parameters.domains, ' ', '')), ','), ',reference,'), contains(concat(',', toLower(replace(pipeline().parameters.systems, ' ', '')), ','), ',reference/internal,')))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate reference - internal",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "cec9eb3f-cf7c-5167-810c-05790cce1043",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "reference",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "internal",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "rows_per_table": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_table",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entities": {
+                    "value": {
+                      "value": "@pipeline().parameters.entities",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "rows_per_entity": {
+                    "value": {
+                      "value": "@pipeline().parameters.rows_per_entity",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "mode": {
+                    "value": {
+                      "value": "@pipeline().parameters.mode",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "windows_on_empty": {
+                    "value": {
+                      "value": "@pipeline().parameters.windows_on_empty",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "history_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.history_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_windows": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_windows",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "new_parent_ratio": {
+                    "value": {
+                      "value": "@pipeline().parameters.new_parent_ratio",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "loop_interval_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.loop_interval_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_run_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_run_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_reference",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      }
+    ],
+    "parameters": {
+      "telemetry_endpoint": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key_vault": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key_secret": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "rows_per_table": {
+        "type": "string",
+        "defaultValue": "100"
+      },
+      "entities": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "rows_per_entity": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "mode": {
+        "type": "string",
+        "defaultValue": "seed"
+      },
+      "windows_on_empty": {
+        "type": "string",
+        "defaultValue": "48"
+      },
+      "history_minutes": {
+        "type": "string",
+        "defaultValue": "2880"
+      },
+      "max_windows": {
+        "type": "string",
+        "defaultValue": "48"
+      },
+      "new_parent_ratio": {
+        "type": "string",
+        "defaultValue": "0.1"
+      },
+      "loop_interval_minutes": {
+        "type": "string",
+        "defaultValue": "0"
+      },
+      "max_run_minutes": {
+        "type": "string",
+        "defaultValue": "60"
+      },
+      "domains": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "systems": {
+        "type": "string",
+        "defaultValue": ""
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pl_data_marketing_meta_ads"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ab27fcc7-a8d3-58be-8f35-8443d3405407"
+  }
+}

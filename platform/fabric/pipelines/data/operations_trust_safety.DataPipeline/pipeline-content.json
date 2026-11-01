@@ -1,0 +1,761 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "1 Bronze Ingestion",
+        "type": "IfCondition",
+        "dependsOn": [],
+        "typeProperties": {
+          "expression": {
+            "value": "@pipeline().parameters.run_bronze",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Run Bronze Ingestion",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "bce46013-f05c-58d3-8179-54f1bfddf52d",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "operations",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "trust_safety",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "entity_filter": {
+                    "value": {
+                      "value": "@pipeline().parameters.entity_filter",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reset_layers": {
+                    "value": {
+                      "value": "@pipeline().parameters.reset_layers",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reload_layers": {
+                    "value": {
+                      "value": "@pipeline().parameters.reload_layers",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "dry_run": {
+                    "value": {
+                      "value": "@pipeline().parameters.dry_run",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "ddl_only": {
+                    "value": {
+                      "value": "@pipeline().parameters.ddl_only",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reprocess_from": {
+                    "value": {
+                      "value": "@pipeline().parameters.reprocess_from",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reprocess_to": {
+                    "value": {
+                      "value": "@pipeline().parameters.reprocess_to",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reprocess_column": {
+                    "value": {
+                      "value": "@pipeline().parameters.reprocess_column",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reprocess_values": {
+                    "value": {
+                      "value": "@pipeline().parameters.reprocess_values",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lookback_days": {
+                    "value": {
+                      "value": "@pipeline().parameters.lookback_days",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "parallel": {
+                    "value": {
+                      "value": "@pipeline().parameters.parallel",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_workers": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_workers",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entity_timeout_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.entity_timeout_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "retry_attempts": {
+                    "value": {
+                      "value": "@pipeline().parameters.retry_attempts",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "retry_wait_sec": {
+                    "value": {
+                      "value": "@pipeline().parameters.retry_wait_sec",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_failures": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_failures",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "resume_run": {
+                    "value": {
+                      "value": "@pipeline().parameters.resume_run",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "created_by": {
+                    "value": {
+                      "value": "@pipeline().parameters.created_by",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "target_layers": {
+                    "value": "bronze",
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_operations",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "2 Silver Processing",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "1 Bronze Ingestion",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@pipeline().parameters.run_silver",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Run Silver Processing",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "bce46013-f05c-58d3-8179-54f1bfddf52d",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "operations",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "trust_safety",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "entity_filter": {
+                    "value": {
+                      "value": "@pipeline().parameters.entity_filter",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reset_layers": {
+                    "value": {
+                      "value": "@pipeline().parameters.reset_layers",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reload_layers": {
+                    "value": {
+                      "value": "@pipeline().parameters.reload_layers",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "dry_run": {
+                    "value": {
+                      "value": "@pipeline().parameters.dry_run",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "ddl_only": {
+                    "value": {
+                      "value": "@pipeline().parameters.ddl_only",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reprocess_from": {
+                    "value": {
+                      "value": "@pipeline().parameters.reprocess_from",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reprocess_to": {
+                    "value": {
+                      "value": "@pipeline().parameters.reprocess_to",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reprocess_column": {
+                    "value": {
+                      "value": "@pipeline().parameters.reprocess_column",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reprocess_values": {
+                    "value": {
+                      "value": "@pipeline().parameters.reprocess_values",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lookback_days": {
+                    "value": {
+                      "value": "@pipeline().parameters.lookback_days",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "parallel": {
+                    "value": {
+                      "value": "@pipeline().parameters.parallel",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_workers": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_workers",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entity_timeout_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.entity_timeout_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "retry_attempts": {
+                    "value": {
+                      "value": "@pipeline().parameters.retry_attempts",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "retry_wait_sec": {
+                    "value": {
+                      "value": "@pipeline().parameters.retry_wait_sec",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_failures": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_failures",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "resume_run": {
+                    "value": {
+                      "value": "@pipeline().parameters.resume_run",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "created_by": {
+                    "value": {
+                      "value": "@pipeline().parameters.created_by",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "target_layers": {
+                    "value": "silver",
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_operations",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "3 Gold Aggregation",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "2 Silver Processing",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@pipeline().parameters.run_gold",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Run Gold Aggregation",
+              "type": "TridentNotebook",
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "typeProperties": {
+                "notebookId": "bce46013-f05c-58d3-8179-54f1bfddf52d",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "domain": {
+                    "value": "operations",
+                    "type": "string"
+                  },
+                  "system": {
+                    "value": "trust_safety",
+                    "type": "string"
+                  },
+                  "environment": {
+                    "value": "dev",
+                    "type": "string"
+                  },
+                  "storage_mode": {
+                    "value": "catalog",
+                    "type": "string"
+                  },
+                  "telemetry_endpoint": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_endpoint",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_vault": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_vault",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "telemetry_key_secret": {
+                    "value": {
+                      "value": "@pipeline().parameters.telemetry_key_secret",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lakehouse_name": {
+                    "value": "rideflow_dev",
+                    "type": "string"
+                  },
+                  "entity_filter": {
+                    "value": {
+                      "value": "@pipeline().parameters.entity_filter",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reset_layers": {
+                    "value": {
+                      "value": "@pipeline().parameters.reset_layers",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reload_layers": {
+                    "value": {
+                      "value": "@pipeline().parameters.reload_layers",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "dry_run": {
+                    "value": {
+                      "value": "@pipeline().parameters.dry_run",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "ddl_only": {
+                    "value": {
+                      "value": "@pipeline().parameters.ddl_only",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reprocess_from": {
+                    "value": {
+                      "value": "@pipeline().parameters.reprocess_from",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reprocess_to": {
+                    "value": {
+                      "value": "@pipeline().parameters.reprocess_to",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reprocess_column": {
+                    "value": {
+                      "value": "@pipeline().parameters.reprocess_column",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "reprocess_values": {
+                    "value": {
+                      "value": "@pipeline().parameters.reprocess_values",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "lookback_days": {
+                    "value": {
+                      "value": "@pipeline().parameters.lookback_days",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "parallel": {
+                    "value": {
+                      "value": "@pipeline().parameters.parallel",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_workers": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_workers",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "entity_timeout_minutes": {
+                    "value": {
+                      "value": "@pipeline().parameters.entity_timeout_minutes",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "retry_attempts": {
+                    "value": {
+                      "value": "@pipeline().parameters.retry_attempts",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "retry_wait_sec": {
+                    "value": {
+                      "value": "@pipeline().parameters.retry_wait_sec",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "max_failures": {
+                    "value": {
+                      "value": "@pipeline().parameters.max_failures",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "resume_run": {
+                    "value": {
+                      "value": "@pipeline().parameters.resume_run",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "created_by": {
+                    "value": {
+                      "value": "@pipeline().parameters.created_by",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "target_layers": {
+                    "value": "gold",
+                    "type": "string"
+                  },
+                  "default_lakehouse": {
+                    "value": "rideflow_dev_operations",
+                    "type": "string"
+                  }
+                }
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      }
+    ],
+    "parameters": {
+      "telemetry_endpoint": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key_vault": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key_secret": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "run_bronze": {
+        "type": "bool",
+        "defaultValue": true
+      },
+      "run_silver": {
+        "type": "bool",
+        "defaultValue": true
+      },
+      "run_gold": {
+        "type": "bool",
+        "defaultValue": true
+      },
+      "entity_filter": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "reset_layers": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "reload_layers": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "dry_run": {
+        "type": "string",
+        "defaultValue": "false"
+      },
+      "ddl_only": {
+        "type": "string",
+        "defaultValue": "false"
+      },
+      "reprocess_from": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "reprocess_to": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "reprocess_column": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "reprocess_values": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "lookback_days": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "parallel": {
+        "type": "string",
+        "defaultValue": "false"
+      },
+      "max_workers": {
+        "type": "string",
+        "defaultValue": "4"
+      },
+      "entity_timeout_minutes": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "retry_attempts": {
+        "type": "string",
+        "defaultValue": "1"
+      },
+      "retry_wait_sec": {
+        "type": "string",
+        "defaultValue": "30"
+      },
+      "max_failures": {
+        "type": "string",
+        "defaultValue": "0"
+      },
+      "resume_run": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "created_by": {
+        "type": "string",
+        "defaultValue": ""
+      }
+    }
+  }
+}

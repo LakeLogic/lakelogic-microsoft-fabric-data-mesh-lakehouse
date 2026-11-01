@@ -1,0 +1,2055 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Right to Erasure - business - salesforce",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "business",
+              "type": "string"
+            },
+            "system": {
+              "value": "salesforce",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_business",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - marketing - google_ads",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "marketing",
+              "type": "string"
+            },
+            "system": {
+              "value": "google_ads",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_marketing",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - marketing - google_analytics",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "marketing",
+              "type": "string"
+            },
+            "system": {
+              "value": "google_analytics",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_marketing",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - marketing - hubspot",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "marketing",
+              "type": "string"
+            },
+            "system": {
+              "value": "hubspot",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_marketing",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - marketing - meta_ads",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "marketing",
+              "type": "string"
+            },
+            "system": {
+              "value": "meta_ads",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_marketing",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - marketplace - rideflow",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "marketplace",
+              "type": "string"
+            },
+            "system": {
+              "value": "rideflow",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_marketplace",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - operations - checkr",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "operations",
+              "type": "string"
+            },
+            "system": {
+              "value": "checkr",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_operations",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - operations - onboarding",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "operations",
+              "type": "string"
+            },
+            "system": {
+              "value": "onboarding",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_operations",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - operations - trust_safety",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "operations",
+              "type": "string"
+            },
+            "system": {
+              "value": "trust_safety",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_operations",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - operations - twilio",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "operations",
+              "type": "string"
+            },
+            "system": {
+              "value": "twilio",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_operations",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - operations - zendesk",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "operations",
+              "type": "string"
+            },
+            "system": {
+              "value": "zendesk",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_operations",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - payments - driver_expenses",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "payments",
+              "type": "string"
+            },
+            "system": {
+              "value": "driver_expenses",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_payments",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - payments - stripe",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "payments",
+              "type": "string"
+            },
+            "system": {
+              "value": "stripe",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_payments",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - reference - internal",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "reference",
+              "type": "string"
+            },
+            "system": {
+              "value": "internal",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_reference",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Right to Erasure - shared - shared",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "daab4733-ae7e-5a75-a85b-148126285f00",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "shared",
+              "type": "string"
+            },
+            "system": {
+              "value": "shared",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "subject_column": {
+              "value": {
+                "value": "@pipeline().parameters.subject_column",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "subject_ids_file": {
+              "value": {
+                "value": "@pipeline().parameters.subject_ids_file",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "strategy": {
+              "value": {
+                "value": "@pipeline().parameters.strategy",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "hash_salt": {
+              "value": {
+                "value": "@pipeline().parameters.hash_salt",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "entity_filter": {
+              "value": {
+                "value": "@pipeline().parameters.entity_filter",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "case_ref": {
+              "value": {
+                "value": "@pipeline().parameters.case_ref",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_shared",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      }
+    ],
+    "parameters": {
+      "telemetry_endpoint": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key_vault": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key_secret": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "subject_column": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "subject_ids": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "subject_ids_file": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "strategy": {
+        "type": "string",
+        "defaultValue": "nullify"
+      },
+      "hash_salt": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "entity_filter": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "dry_run": {
+        "type": "string",
+        "defaultValue": "true"
+      },
+      "confirm": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "case_ref": {
+        "type": "string",
+        "defaultValue": ""
+      }
+    }
+  }
+}

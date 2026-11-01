@@ -1,0 +1,1510 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Maintenance - business - salesforce",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "business",
+              "type": "string"
+            },
+            "system": {
+              "value": "salesforce",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_business",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - marketing - google_ads",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "marketing",
+              "type": "string"
+            },
+            "system": {
+              "value": "google_ads",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_marketing",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - marketing - google_analytics",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "marketing",
+              "type": "string"
+            },
+            "system": {
+              "value": "google_analytics",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_marketing",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - marketing - hubspot",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "marketing",
+              "type": "string"
+            },
+            "system": {
+              "value": "hubspot",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_marketing",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - marketing - meta_ads",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "marketing",
+              "type": "string"
+            },
+            "system": {
+              "value": "meta_ads",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_marketing",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - marketplace - rideflow",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "marketplace",
+              "type": "string"
+            },
+            "system": {
+              "value": "rideflow",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_marketplace",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - operations - checkr",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "operations",
+              "type": "string"
+            },
+            "system": {
+              "value": "checkr",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_operations",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - operations - onboarding",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "operations",
+              "type": "string"
+            },
+            "system": {
+              "value": "onboarding",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_operations",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - operations - trust_safety",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "operations",
+              "type": "string"
+            },
+            "system": {
+              "value": "trust_safety",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_operations",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - operations - twilio",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "operations",
+              "type": "string"
+            },
+            "system": {
+              "value": "twilio",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_operations",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - operations - zendesk",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "operations",
+              "type": "string"
+            },
+            "system": {
+              "value": "zendesk",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_operations",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - payments - driver_expenses",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "payments",
+              "type": "string"
+            },
+            "system": {
+              "value": "driver_expenses",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_payments",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - payments - stripe",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "payments",
+              "type": "string"
+            },
+            "system": {
+              "value": "stripe",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_payments",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - reference - internal",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "reference",
+              "type": "string"
+            },
+            "system": {
+              "value": "internal",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_reference",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      },
+      {
+        "name": "Maintenance - shared - shared",
+        "type": "TridentNotebook",
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "notebookId": "63ea5b74-eb40-570a-b1ef-08141752f34b",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "domain": {
+              "value": "shared",
+              "type": "string"
+            },
+            "system": {
+              "value": "shared",
+              "type": "string"
+            },
+            "environment": {
+              "value": "dev",
+              "type": "string"
+            },
+            "storage_mode": {
+              "value": "catalog",
+              "type": "string"
+            },
+            "telemetry_endpoint": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_endpoint",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_vault": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_vault",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "telemetry_key_secret": {
+              "value": {
+                "value": "@pipeline().parameters.telemetry_key_secret",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "lakehouse_name": {
+              "value": "rideflow_dev",
+              "type": "string"
+            },
+            "target_layers": {
+              "value": {
+                "value": "@pipeline().parameters.target_layers",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "vacuum_retain_hrs": {
+              "value": {
+                "value": "@pipeline().parameters.vacuum_retain_hrs",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dry_run": {
+              "value": {
+                "value": "@pipeline().parameters.dry_run",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "confirm": {
+              "value": {
+                "value": "@pipeline().parameters.confirm",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "default_lakehouse": {
+              "value": "rideflow_dev_shared",
+              "type": "string"
+            }
+          }
+        },
+        "dependsOn": []
+      }
+    ],
+    "parameters": {
+      "telemetry_endpoint": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key_vault": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key_secret": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "target_layers": {
+        "type": "string",
+        "defaultValue": "bronze,silver,gold"
+      },
+      "vacuum_retain_hrs": {
+        "type": "string",
+        "defaultValue": "168"
+      },
+      "dry_run": {
+        "type": "string",
+        "defaultValue": "true"
+      },
+      "confirm": {
+        "type": "string",
+        "defaultValue": ""
+      }
+    }
+  }
+}

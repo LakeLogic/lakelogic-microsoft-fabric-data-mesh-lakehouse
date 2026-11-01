@@ -84,7 +84,7 @@
       <rect x="7" y="7" width="158" height="98" rx="13" fill="none" stroke="#fff" stroke-opacity="0.045"/>
       <text x="22" y="31" class="label" font-size="10" fill="#7e969c">SOURCE</text>
       <text x="22" y="61" class="display" font-size="23" fill="#f6f8f8">Landing</text>
-      <text x="22" y="86" class="body" font-size="13" fill="#92a5aa">UC Volumes · files</text>
+      <text x="22" y="86" class="body" font-size="13" fill="#92a5aa">OneLake Files · landing</text>
     </g>
 
     <g transform="translate(312 326)">

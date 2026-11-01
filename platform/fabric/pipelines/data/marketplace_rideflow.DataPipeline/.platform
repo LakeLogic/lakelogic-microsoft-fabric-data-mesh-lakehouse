@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pl_data_marketplace_rideflow"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c24bf3d7-d0c6-5986-9c6b-5bb315ec3cf5"
+  }
+}

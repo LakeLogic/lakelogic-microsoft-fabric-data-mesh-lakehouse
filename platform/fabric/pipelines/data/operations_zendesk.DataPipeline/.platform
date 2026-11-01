@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pl_data_operations_zendesk"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ec8005a3-9481-5f6b-bbb4-e4d74a8ee2df"
+  }
+}

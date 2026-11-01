@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pl_data_marketing_google_analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "fef24188-715f-5915-b07d-80dfd00fbf23"
+  }
+}

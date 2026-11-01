@@ -1,0 +1,22 @@
+{
+  "_note": "Generated from the project's deployment target in LakeLogic Deliver. Secrets are referenced by name only.",
+  "environments": {
+    "dev": {
+      "catalog_layout": "per_domain",
+      "compute": null,
+      "container": "rideflow_dev",
+      "engine_version": "1.85.1",
+      "engine_wheel": "Files/wheels/lakelogic-1.88.0-py3-none-any.whl",
+      "landing_root": "abfss://rideflow_dev@onelake.dfs.fabric.microsoft.com/rideflow_dev_{domain}.Lakehouse/Files/landing/{system}",
+      "log_root": "/lakehouse/default/Files/lakelogic_logs",
+      "project_root": "rideflow_dev",
+      "secret_name": null,
+      "secret_scope": null
+    }
+  },
+  "platform": "fabric",
+  "unset_environments": [
+    "staging",
+    "prod"
+  ]
+}

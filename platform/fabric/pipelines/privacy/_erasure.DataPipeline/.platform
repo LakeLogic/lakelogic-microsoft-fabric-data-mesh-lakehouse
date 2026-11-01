@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pl_privacy_erasure"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "11abf49d-3b7f-5e64-a2cb-fd65a6475f68"
+  }
+}
