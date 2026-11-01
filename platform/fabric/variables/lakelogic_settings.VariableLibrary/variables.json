@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/variableLibrary/definition/variables/1.0.0/schema.json",
+  "variables": [
+    {
+      "name": "synthetic_data",
+      "type": "Boolean",
+      "value": true,
+      "note": "Allow the synthetic-seed notebook to write test data. False in the prod value set."
+    }
+  ]
+}

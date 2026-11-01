@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pl_data_payments_stripe"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3ae5f0aa-56b1-5cd2-8ff1-d3f78cdd6ff4"
+  }
+}

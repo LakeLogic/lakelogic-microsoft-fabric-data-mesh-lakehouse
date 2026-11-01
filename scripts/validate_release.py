@@ -12,7 +12,9 @@ def main() -> int:
     errors: list[str] = []
     python_files = list(ROOT.rglob("*.py"))
     for path in python_files:
-        try: ast.parse(path.read_text(encoding="utf-8"))
+        # Notebook cell magics (`%%configure`, `%pip`) are not Python; blank them before parsing.
+        source = re.sub(r"(?m)^\s*%.*$", "", path.read_text(encoding="utf-8"))
+        try: ast.parse(source)
         except Exception as exc: errors.append(f"Python syntax: {path.relative_to(ROOT)}: {exc}")
     yaml_files = list(ROOT.rglob("*.yaml")) + list(ROOT.rglob("*.yml"))
     for path in yaml_files:

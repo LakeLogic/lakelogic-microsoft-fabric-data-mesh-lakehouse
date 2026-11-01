@@ -1,282 +1,126 @@
-**WORKING MICROSOFT FABRIC LAKEHOUSE**
+# RideFlow: a governed data mesh on Microsoft Fabric
 
-# Build and run a governed data mesh on Microsoft Fabric
+**Build a decentralised Fabric lakehouse with shared governance.**
 
-A working implementation of six domain-owned RideFlow data products and eleven synthetic source
-systems, defined with portable [Open Lakehouse Contracts](https://lakelogic.github.io/open-lakehouse-contract/)
-and executed by [LakeLogic Core](https://pypi.org/project/lakelogic/) through Fabric Spark notebooks,
-OneLake and a one-click mesh orchestrator.
+Businesses need data they can trust, but ingestion, transformation and quality checks are often implemented differently across teams. Ownership is unclear, governance is inconsistent, and every new source adds more custom code to maintain. **LakeLogic Core standardises ingestion, transformation, validation and materialisation through executable data contracts**, giving domain teams a consistent way to deliver governed data products.
 
-**Schema checks · quality gates · quarantine · lineage · PII controls · service levels**
+RideFlow demonstrates this in a decentralised Microsoft Fabric lakehouse: CSV and JSON exports alongside PDFs, images and Word documents, processed through Fabric Spark notebooks and Data Pipelines.
 
-> **Reference environment:** RideFlow is a fictional ride-hailing and food-delivery business using
-> synthetic data. This is a community reference from the LakeLogic team, not an official Microsoft
-> product.
+This synthetic reference project uses **OneLake, Delta Lake, Fabric Data Pipelines and a Variable Library**, with **158 contracts across seven domains** and Bronze, Silver and Gold layers. The contracts are the same ones that run in the [Databricks reference project](https://github.com/LakeLogic/lakelogic-rideflow-databricks-governed-lakehouse); only the platform layer differs.
 
-![A RideFlow system running Bronze → Silver → Gold, all activities succeeded](docs/images/fabric_pipeline_run_medallion.png)
+> RideFlow is a fictional business using synthetic data. This is a community reference from the LakeLogic team, not an official Microsoft product.
 
-## Project status
+## Architecture
 
-The RideFlow contracts, test-data generators and LakeLogic controls come from the
-existing Databricks reference implementation.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/rideflow_architecture_dark.png">
+  <img alt="RideFlow architecture: domains publish data products into per-domain OneLake lakehouses, governed by contracts as code" src="docs/images/rideflow_architecture_light.png">
+</picture>
 
-The **Microsoft Fabric deployment and runtime layer is new**, following Fabric and
-OneLake conventions. It has been **validated end-to-end on a live Fabric workspace** —
-all six domains / eleven systems run green through a single one-click mesh orchestrator.
-On trial (FTL64) capacity the mesh runs in bounded parallel (two systems at a time to
-stay within the trial's Spark-session limits); a separate max-parallel orchestrator is
-included for purchased F-SKU capacity.
+Domains maintain their own contract trees and publish products in separate lakehouses (`rideflow_dev_<domain>`). Shared Gold products consume outputs across domain boundaries; reusable notebooks and deployment tooling provide the common platform.
 
-See [docs/architecture.md](docs/architecture.md) for the design and current
-limitations.
+![The rideflow_dev_marketplace lakehouse after a run: bronze, silver, gold, lakelogic and quarantine schemas, with checkpoints and landing files by system](docs/images/fabric_domain_lakehouse.png)
 
-## What this project demonstrates
+*RideFlow reference project · synthetic data. In Fabric after a run: the Marketplace lakehouse, with its own layer, quarantine and run-log schemas and its landing files.*
 
-- **Domain ownership:** each business domain owns its contracts and data products.
-- **Shared rules:** domains reuse the same validation, quality and pipeline controls.
-- **Quarantine with reasons:** rejected rows are retained with details of the rule
-  that failed.
-- **Dataset quality gates:** serious data-quality failures can stop the pipeline.
-- **Freshness and volume checks:** contracts can define service-level expectations.
-- **Cross-domain dependencies:** one data product can declare that it depends on
-  another.
-- **Gold data models:** contracts can configure models such as SCD Type 2
-  dimensions.
+<details>
+<summary>The workspace: one lakehouse per domain</summary>
 
-## See it in action
+![The rideflow_dev workspace: a lakehouse and SQL analytics endpoint per domain, the lakelogic_settings Variable Library, and Notebooks and pipelines folders](docs/images/fabric_workspace_lakehouses.png)
 
-Six teams, eleven source systems, one set of rules — running natively on **Microsoft Fabric
-and OneLake**, deployed as code and driven by a single pipeline.
+*RideFlow reference project · synthetic data. Every domain lakehouse comes with its SQL analytics endpoint.*
 
-🔒 **Auditable governance evidence, by construction.** Every domain gets its own governed schema
-in one lakehouse; selected Gold dimensions demonstrate SCD Type 2 history and row-level lineage back
-to source, and PII columns are masked by contract — names, emails and phones land `***REDACTED***`
-unless a policy says otherwise.
+</details>
 
-![Fabric Lakehouse on OneLake with per-domain schemas and a Gold dimension with PII redacted](docs/images/fabric_onelake_domains_masked_gold.png)
+**Why this is a mesh pattern:** domain-local definitions, consumer-facing products, reusable platform execution and shared governance conventions. Lakehouse separation and declared owners do not automatically establish team permissions; configure workspace roles and OneLake access explicitly.
 
-📊 **Proof, not hope.** Every run emits a data-quality summary — which contract, which layer, how
-many rows accepted — so trust in the data is measured, not assumed.
+Domains: Marketplace, Payments, Operations, Marketing, Business, Reference and Shared. The contract tree is authoritative. [Explore the architecture](docs/architecture.md)
 
-![LakeLogic pipeline run summary — contract, layer, status and row counts](docs/images/fabric_run_summary_quality.png)
-
-## Reference estate
-
-```text
-RideFlow · one Fabric lakehouse (OneLake) · 6 domains · 11 source systems
-Every domain runs the same medallion — Bronze (raw, all-string, schema-flexible) → Silver (typed, cleaned, transformed, validated) → Gold (products)
-│
-├── Marketplace   (rideflow)                          ← shown expanded as the example
-│   ├── Bronze   raw · all-string · schema-flexible (evolves, keeps everything)
-│   │     driver_profiles · rider_profiles · driver_telemetry · rider_app_events
-│   │     trip_requests · trip_completed · trip_cancellations
-│   ├── Silver   typed, cleaned, deduped, transformed, validated
-│   │     driver_profiles · rider_profiles · trips (joined) · trip_requests
-│   │     driver_telemetry · rider_app_events
-│   └── Gold   business products
-│         dim_driver · dim_driver_scorecard · dim_rider
-│         fact_trip_daily_kpis · fact_rider_daily_metrics · fact_surge_pricing_inference
-│
-├── Payments     (stripe)        →  Bronze → Silver → Gold   ·  charges, payouts
-├── Operations   (checkr · twilio · zendesk)   →  Bronze → Silver → Gold
-├── Marketing    (google_ads · google_analytics · hubspot · meta_ads)   →  Bronze → Silver → Gold
-├── Reference    (internal)      →  Bronze → Silver → Gold   ·  cities, fx rates
-└── Shared       (cross-domain marts)   →  Gold   ·  products that join every domain
-```
-
-## How the design maps to Fabric
-
-| Data-mesh need | Microsoft Fabric implementation |
+| Path | Contents |
 | --- | --- |
-| Shared data platform | One schema-enabled Lakehouse |
-| Domain boundary | One Lakehouse schema per domain |
-| Bronze, Silver and Gold tables | Delta tables in OneLake |
-| Landing files, contracts and logs | OneLake Files |
-| Processing | Fabric Spark notebooks |
-| Deployment | Fabric REST API and OneLake DFS API |
-| Orchestration | Notebook runs started by the deployment script |
-| Rejected data | A shared `quarantine` schema |
+| `contracts/` | Domain and system registries plus 158 contracts, identical to Databricks |
+| `platform/fabric/notebooks/` | Setup, pipeline driver, test data, SLO checks, maintenance, erasure and retention |
+| `platform/fabric/pipelines/` | One pipeline per system, the mesh orchestrator and admin, monitor, privacy and test pipelines |
+| `platform/fabric/variables/` | `lakelogic_settings` Variable Library, with a `prod` value set |
+| `platform/fabric/deploy.py` | Creates lakehouses, uploads contracts and deploys every item through the Fabric REST API |
 
-LakeLogic applies the contract rules and runs the data processing. Microsoft
-Fabric provides the workspace, OneLake storage, Spark compute, Lakehouse tables,
-permissions and notebook runtime.
+## What you can learn
 
-## Before you start
-
-You need:
-
-- A Microsoft Fabric workspace connected to an active Fabric capacity. A trial
-  capacity can be used.
-- Permission to create a Lakehouse and run notebooks.
-- [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) installed
-  and signed in.
-- Python 3.
-
-The deployment can use an existing workspace or create a new one. Creating a
-workspace requires a Fabric capacity ID.
-
-## Quick start
-
-### 1. Sign in
-
-```bash
-az login
-```
-
-### 2. Set the workspace and Lakehouse
-
-Edit [fabric/fabric_variables.yaml](fabric/fabric_variables.yaml):
-
-```yaml
-workspace:
-  name: "RideFlow Data Mesh"
-  capacity_id: ""
-
-lakehouse:
-  name: "rideflow_demo"
-```
-
-For an **existing workspace**, enter its exact name and leave `capacity_id` empty.
-
-To **create a workspace**, provide the ID of an active Fabric capacity:
-
-```bash
-az account get-access-token \
-  --resource https://api.fabric.microsoft.com \
-  --query accessToken \
-  --output tsv
-```
-
-You can also find the capacity ID in the Fabric Admin portal under **Capacity
-settings**. It is the GUID shown in the capacity page URL.
-
-### 3. Deploy
-
-On Windows PowerShell:
-
-```powershell
-.\fabric\deploy\deploy.ps1
-```
-
-On macOS or Linux:
-
-```bash
-./fabric/deploy/deploy.sh
-```
-
-The wrapper installs the small local dependencies required by the deployment
-script, then runs it.
-
-To call the Python script directly:
-
-```bash
-python -m pip install pyyaml requests
-python fabric/deploy/deploy.py
-```
-
-## What the deployment does
-
-The deployment:
-
-1. Finds or creates the Fabric workspace.
-2. Finds or creates the schema-enabled `rideflow_demo` Lakehouse.
-3. uploads the contract registry to `Files/_contracts` in OneLake.
-4. Imports and attaches three Fabric notebooks.
-5. Creates the domain schemas, quarantine schema, folders and run-log tables.
-6. Generates test data for each source system.
-7. Runs the Bronze, Silver and Gold pipelines in dependency order.
-
-Bad rows can be sent to quarantine while valid rows continue. Dataset-level
-quality gates can stop the run when the configured failure limit is exceeded.
-
-### Useful deployment options
-
-Create the Fabric resources without running the domain pipelines:
-
-```bash
-python fabric/deploy/deploy.py --setup-only
-```
-
-Run one domain and source system:
-
-```bash
-python fabric/deploy/deploy.py --domain marketplace/rideflow
-```
-
-## Check the result
-
-Run the following in a Fabric notebook or the Lakehouse SQL analytics endpoint:
-
-```sql
-SELECT *
-FROM rideflow_demo.marketplace.gold_rideflow_fact_trip_daily_kpis
-LIMIT 20;
-```
-
-List the tables containing rejected rows:
-
-```sql
-SHOW TABLES IN rideflow_demo.quarantine;
-```
-
-Quarantined records include `_lakelogic_errors`, which explains why each record
-failed.
-
-## Repository contents
-
-```text
-domains_rideflow/
-  Contracts and configuration owned by each RideFlow domain
-
-fabric/
-  fabric_variables.yaml   Workspace and Lakehouse settings
-  notebooks/              Setup, test-data and pipeline notebooks
-  deploy/                 PowerShell, shell and Python deployment tools
-  pipelines/              Optional Fabric Data Pipeline definition
-
-docs/
-  Architecture and Fabric mapping notes
-
-scripts/
-  Static release checks
-```
-
-The contract hierarchy is:
-
-```text
-domain defaults -> system defaults -> individual data contract
-```
-
-More specific settings override inherited defaults. This lets teams share common
-rules without copying the same configuration into every contract.
-
-## Fabric and Databricks
-
-This repository is the Microsoft Fabric sibling of
-[`lakelogic-databricks-data-mesh`](https://github.com/LakeLogic/lakelogic-databricks-data-mesh).
-
-The business domains and contract model are shared. The deployment layer changes
-because each platform provides storage, catalogues, compute, permissions and
-orchestration differently.
-
-| Databricks | Microsoft Fabric |
+| Your focus | What to inspect |
 | --- | --- |
-| Unity Catalog catalog | Schema-enabled Lakehouse |
-| Unity Catalog schema | Lakehouse schema |
-| Unity Catalog Volumes | OneLake Files |
-| Managed Delta tables | OneLake Delta tables |
-| Databricks Spark | Fabric Spark |
-| Databricks Asset Bundles | Fabric REST and OneLake APIs |
-| Databricks Jobs | Fabric notebook runs or Data Pipelines |
+| Architecture | Domain boundaries, inherited settings and cross-domain dependencies |
+| Engineering | Contract-driven ingestion, transformations, incremental processing and orchestration |
+| Analytics | Gold facts, dimensions and a shared city/day marketplace-health product |
+| Governance | Ownership, quality rules, privacy operations, service expectations and their evidence |
+| Platform delivery | Fabric Git-format items, Variable Library value sets and repository validation |
 
-## Learn more
+## Run the example
 
-- [Architecture and implementation notes](docs/architecture.md)
-- [LakeLogic documentation](https://lakelogic.github.io/LakeLogic/)
-- [LakeLogic on PyPI](https://pypi.org/project/lakelogic/)
+Use an isolated demo workspace. You need an authenticated Azure CLI (`az login`), a Fabric capacity (Trial works) and permission to create items in the workspace.
 
-Install the framework:
+**Before deploying:** review the [deployment target](platform/fabric/deploy/deployment_targets.json) and replace environment-specific workspace and lakehouse names. Capacity usage incurs costs; synthetic inputs need no live source-system credentials.
+
+**Run independently or connect to LakeLogic Platform.** The pipelines can run without a LakeLogic Platform connection. Inspect pipeline run metadata and quality results in the LakeLogic tables within your lakehouses. If you have a LakeLogic Platform workspace, set the telemetry endpoint and supply the key at run time or from Key Vault to also send run metadata to the platform. Leave the endpoint empty to run independently.
 
 ```bash
-pip install lakelogic
+python platform/fabric/deploy.py --workspace rideflow_dev --lakehouse rideflow_dev
 ```
+
+Add `--domain <domain>/<system>` to deploy a single system, or `--setup-only` to create the domain lakehouses, upload contracts and import notebooks without building pipelines. `--lakehouse` is the prefix of each domain's `rideflow_dev_<domain>` lakehouse.
+
+Then run **`pl_data_00_mesh_orchestrator`** in the workspace.
+
+![The mesh orchestrator pipeline: Business and Reference run first, then the systems that read them](docs/images/fabric_mesh_orchestrator.png)
+
+*RideFlow reference project · synthetic data. The orchestrator runs each system's pipeline in dependency order: Business and Reference first, then the systems that read them.*
+
+<details>
+<summary>One pipeline per system, and a system run</summary>
+
+![The pipelines/data folder: the mesh orchestrator and one pipeline per system](docs/images/fabric_data_pipelines.png)
+
+*RideFlow reference project · synthetic data. Data pipelines in the workspace's `pipelines/data` folder.*
+
+![A RideFlow system running Bronze, Silver and Gold, all activities succeeded](docs/images/fabric_pipeline_run_medallion.png)
+
+*RideFlow reference project · synthetic data. One system's Bronze, Silver and Gold run.*
+
+</details>
+
+**Capacity.** Systems run one at a time, in dependency order, so the mesh fits a Trial capacity's Spark-session limits. Business and Reference run first, then the systems that read them.
+
+**Test without live sources.** `pl_test_synthetic_seed` generates synthetic inputs from Bronze contracts, including PDFs, images and Word documents. Synthetic rows carry a `_synthetic` marker through Silver and Gold.
+
+**Production stops synthetic data.** Activate the `prod` value set of `lakelogic_settings` in a production workspace. It sets `synthetic_data` to `false`, and the seed refuses to run.
+
+**Check parameters before running or rerunning:** demo pipelines can reset selected layers, and some products overwrite their outputs. Checkpoints and seed settings also affect reruns. Do not run reset-oriented pipelines against production tables.
+
+## Follow one data product
+
+**How do trip demand, completion and revenue vary by city and day?**
+
+Follow Marketplace requests and completed trips, join Payments charges, and inspect the Shared marketplace-health mart. Its grain is one row per `(kpi_date, city_code)`. Inspect accepted and rejected rows alongside run status, not just whether the pipeline finished.
+
+## Evidence and limitations
+
+![Quarantine example](docs/images/fabric_quarantine_rows.png)
+
+*RideFlow reference project · synthetic data. Rows held in `quarantine_silver_rideflow_driver_profiles`, each with the rule it broke and its category. Use your deployment's tables and logs to verify the revision you run.*
+
+<details>
+<summary>Run summary with quality results</summary>
+
+![Run summary with quality results](docs/images/fabric_run_summary_quality.png)
+
+</details>
+
+- Configured row failures may enter quarantine; dataset gates and execution errors can stop a run.
+- Contract definitions and CI checks are distinct from successful Fabric execution. Use dated runs and output checks for the exact revision deployed.
+- Synthetic tests do not establish production performance, security or business correctness. Retention and erasure pipelines do not establish end-to-end GDPR compliance.
+- Review permissions, realistic SLOs, recovery and operating costs before production use.
+
+## Explore further
+
+[Contract specification](https://github.com/LakeLogic/open-lakehouse-contract) | [LakeLogic Core runtime](https://github.com/LakeLogic/LakeLogic) | [Databricks reference project](https://github.com/LakeLogic/lakelogic-rideflow-databricks-governed-lakehouse) | [Architecture reference](docs/architecture.md)
+
+<sub>Platform layer generated by LakeLogic Lakehouse Studio from the Databricks reference contracts.</sub>

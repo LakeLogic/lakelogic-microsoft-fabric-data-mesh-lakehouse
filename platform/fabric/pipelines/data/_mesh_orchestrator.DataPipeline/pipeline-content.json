@@ -1,0 +1,1943 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "0 Generate Data Estate",
+        "type": "IfCondition",
+        "dependsOn": [],
+        "typeProperties": {
+          "expression": {
+            "value": "@pipeline().parameters.generate_estate_first",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Generate data estate",
+              "type": "InvokePipeline",
+              "typeProperties": {
+                "operationType": "InvokeFabricPipeline",
+                "pipelineId": "2f396c42-7a2c-5dea-9138-0b0248b44f31",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "waitOnCompletion": true,
+                "parameters": {
+                  "rows_per_table": {
+                    "value": "@pipeline().parameters.rows_per_table",
+                    "type": "Expression"
+                  },
+                  "entities": {
+                    "value": "@pipeline().parameters.entities",
+                    "type": "Expression"
+                  },
+                  "rows_per_entity": {
+                    "value": "@pipeline().parameters.rows_per_entity",
+                    "type": "Expression"
+                  },
+                  "mode": {
+                    "value": "@pipeline().parameters.mode",
+                    "type": "Expression"
+                  },
+                  "windows_on_empty": {
+                    "value": "@pipeline().parameters.windows_on_empty",
+                    "type": "Expression"
+                  },
+                  "history_minutes": {
+                    "value": "@pipeline().parameters.history_minutes",
+                    "type": "Expression"
+                  },
+                  "max_windows": {
+                    "value": "@pipeline().parameters.max_windows",
+                    "type": "Expression"
+                  },
+                  "new_parent_ratio": {
+                    "value": "@pipeline().parameters.new_parent_ratio",
+                    "type": "Expression"
+                  },
+                  "loop_interval_minutes": {
+                    "value": "@pipeline().parameters.loop_interval_minutes",
+                    "type": "Expression"
+                  },
+                  "max_run_minutes": {
+                    "value": "@pipeline().parameters.max_run_minutes",
+                    "type": "Expression"
+                  },
+                  "domains": {
+                    "value": "@pipeline().parameters.domains",
+                    "type": "Expression"
+                  },
+                  "systems": {
+                    "value": "@pipeline().parameters.systems",
+                    "type": "Expression"
+                  },
+                  "telemetry_endpoint": {
+                    "value": "@pipeline().parameters.telemetry_endpoint",
+                    "type": "Expression"
+                  },
+                  "telemetry_key": {
+                    "value": "@pipeline().parameters.telemetry_key",
+                    "type": "Expression"
+                  },
+                  "telemetry_key_vault": {
+                    "value": "@pipeline().parameters.telemetry_key_vault",
+                    "type": "Expression"
+                  },
+                  "telemetry_key_secret": {
+                    "value": "@pipeline().parameters.telemetry_key_secret",
+                    "type": "Expression"
+                  }
+                }
+              },
+              "externalReferences": {
+                "connection": "00000000-0000-0000-0000-000000000000"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": true
+              },
+              "dependsOn": []
+            }
+          ]
+        }
+      },
+      {
+        "name": "Pause 1",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "0 Generate Data Estate",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "business - salesforce",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "61164310-ba58-5eed-bc34-55c10eb3c0c7",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "0 Generate Data Estate",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 1",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 2",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "business - salesforce",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "reference - internal",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "687fcc82-ec29-52fa-9e70-18821b84a5f7",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "0 Generate Data Estate",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 2",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 3",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "reference - internal",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "marketing - google_ads",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "596f1de5-6092-550c-b13b-94b37f63ab6d",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "reference - internal",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 3",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 4",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "marketing - google_ads",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "marketing - google_analytics",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "fef24188-715f-5915-b07d-80dfd00fbf23",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "reference - internal",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 4",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 5",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "marketing - google_analytics",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "marketing - meta_ads",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "ab27fcc7-a8d3-58be-8f35-8443d3405407",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "reference - internal",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 5",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 6",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "marketing - meta_ads",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "marketplace - rideflow",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "c24bf3d7-d0c6-5986-9c6b-5bb315ec3cf5",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "reference - internal",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 6",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 7",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "marketplace - rideflow",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "operations - twilio",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "225cfcf2-3af3-58dd-8dda-3a2cc610d965",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "reference - internal",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 7",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 8",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "operations - twilio",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "marketing - hubspot",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "9a85935b-3f93-57bd-bb85-5d515f6810eb",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "marketplace - rideflow",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "reference - internal",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 8",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 9",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "marketing - hubspot",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "operations - checkr",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "565ee0e1-41b8-546f-9629-0d6f6c8e597d",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "marketplace - rideflow",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 9",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 10",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "operations - checkr",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "operations - onboarding",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "8b38efca-f15e-5a52-ac42-43fc3ecdf434",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "marketplace - rideflow",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 10",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 11",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "operations - onboarding",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "operations - trust_safety",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "7b2c80c9-aaa1-5859-b787-3f903ed9de14",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "marketplace - rideflow",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "reference - internal",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 11",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 12",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "operations - trust_safety",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "payments - driver_expenses",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "fa5df0de-b45f-5c31-a8bd-2fc456c87081",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "marketplace - rideflow",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "reference - internal",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 12",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 13",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "payments - driver_expenses",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "payments - stripe",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "3ae5f0aa-56b1-5cd2-8ff1-d3f78cdd6ff4",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "marketplace - rideflow",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "reference - internal",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 13",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 14",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "payments - stripe",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "operations - zendesk",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "ec8005a3-9481-5f6b-bbb4-e4d74a8ee2df",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "marketplace - rideflow",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "payments - stripe",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 14",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pause 15",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "operations - zendesk",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 60
+        }
+      },
+      {
+        "name": "shared - shared",
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "4bd8acce-db86-5814-a849-576661658362",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "waitOnCompletion": true,
+          "parameters": {
+            "run_bronze": {
+              "value": "@pipeline().parameters.run_bronze",
+              "type": "Expression"
+            },
+            "run_silver": {
+              "value": "@pipeline().parameters.run_silver",
+              "type": "Expression"
+            },
+            "run_gold": {
+              "value": "@pipeline().parameters.run_gold",
+              "type": "Expression"
+            },
+            "telemetry_endpoint": {
+              "value": "@pipeline().parameters.telemetry_endpoint",
+              "type": "Expression"
+            },
+            "telemetry_key": {
+              "value": "@pipeline().parameters.telemetry_key",
+              "type": "Expression"
+            },
+            "telemetry_key_vault": {
+              "value": "@pipeline().parameters.telemetry_key_vault",
+              "type": "Expression"
+            },
+            "telemetry_key_secret": {
+              "value": "@pipeline().parameters.telemetry_key_secret",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "dependsOn": [
+          {
+            "activity": "marketing - google_ads",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "marketing - hubspot",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "marketing - meta_ads",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "marketplace - rideflow",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "operations - checkr",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "payments - stripe",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Pause 15",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Record business - salesforce",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "business - salesforce",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "business - salesforce"
+        }
+      },
+      {
+        "name": "Record reference - internal",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "reference - internal",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "reference - internal"
+        }
+      },
+      {
+        "name": "Record marketing - google_ads",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "marketing - google_ads",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "marketing - google_ads"
+        }
+      },
+      {
+        "name": "Record marketing - google_analytics",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "marketing - google_analytics",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "marketing - google_analytics"
+        }
+      },
+      {
+        "name": "Record marketing - meta_ads",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "marketing - meta_ads",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "marketing - meta_ads"
+        }
+      },
+      {
+        "name": "Record marketplace - rideflow",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "marketplace - rideflow",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "marketplace - rideflow"
+        }
+      },
+      {
+        "name": "Record operations - twilio",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "operations - twilio",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "operations - twilio"
+        }
+      },
+      {
+        "name": "Record marketing - hubspot",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "marketing - hubspot",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "marketing - hubspot"
+        }
+      },
+      {
+        "name": "Record operations - checkr",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "operations - checkr",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "operations - checkr"
+        }
+      },
+      {
+        "name": "Record operations - onboarding",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "operations - onboarding",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "operations - onboarding"
+        }
+      },
+      {
+        "name": "Record operations - trust_safety",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "operations - trust_safety",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "operations - trust_safety"
+        }
+      },
+      {
+        "name": "Record payments - driver_expenses",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "payments - driver_expenses",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "payments - driver_expenses"
+        }
+      },
+      {
+        "name": "Record payments - stripe",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "payments - stripe",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "payments - stripe"
+        }
+      },
+      {
+        "name": "Record operations - zendesk",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "operations - zendesk",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "operations - zendesk"
+        }
+      },
+      {
+        "name": "Record shared - shared",
+        "type": "AppendVariable",
+        "dependsOn": [
+          {
+            "activity": "shared - shared",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "variableName": "failed_systems",
+          "value": "shared - shared"
+        }
+      },
+      {
+        "name": "Fail if a system failed",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "business - salesforce",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record business - salesforce",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "reference - internal",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record reference - internal",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "marketing - google_ads",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record marketing - google_ads",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "marketing - google_analytics",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record marketing - google_analytics",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "marketing - meta_ads",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record marketing - meta_ads",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "marketplace - rideflow",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record marketplace - rideflow",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "operations - twilio",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record operations - twilio",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "marketing - hubspot",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record marketing - hubspot",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "operations - checkr",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record operations - checkr",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "operations - onboarding",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record operations - onboarding",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "operations - trust_safety",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record operations - trust_safety",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "payments - driver_expenses",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record payments - driver_expenses",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "payments - stripe",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record payments - stripe",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "operations - zendesk",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record operations - zendesk",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "shared - shared",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Record shared - shared",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@greater(length(variables('failed_systems')), 0)",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "Systems failed",
+              "type": "Fail",
+              "typeProperties": {
+                "message": {
+                  "value": "@concat('Failed or not run: ', join(variables('failed_systems'), ', '))",
+                  "type": "Expression"
+                },
+                "errorCode": "500"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "parameters": {
+      "telemetry_endpoint": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key_vault": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "telemetry_key_secret": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "run_bronze": {
+        "type": "bool",
+        "defaultValue": true
+      },
+      "run_silver": {
+        "type": "bool",
+        "defaultValue": true
+      },
+      "run_gold": {
+        "type": "bool",
+        "defaultValue": true
+      },
+      "generate_estate_first": {
+        "type": "bool",
+        "defaultValue": false
+      },
+      "rows_per_table": {
+        "type": "string",
+        "defaultValue": "100"
+      },
+      "entities": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "rows_per_entity": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "mode": {
+        "type": "string",
+        "defaultValue": "seed"
+      },
+      "windows_on_empty": {
+        "type": "string",
+        "defaultValue": "48"
+      },
+      "history_minutes": {
+        "type": "string",
+        "defaultValue": "2880"
+      },
+      "max_windows": {
+        "type": "string",
+        "defaultValue": "48"
+      },
+      "new_parent_ratio": {
+        "type": "string",
+        "defaultValue": "0.1"
+      },
+      "loop_interval_minutes": {
+        "type": "string",
+        "defaultValue": "0"
+      },
+      "max_run_minutes": {
+        "type": "string",
+        "defaultValue": "60"
+      },
+      "domains": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "systems": {
+        "type": "string",
+        "defaultValue": ""
+      }
+    },
+    "variables": {
+      "failed_systems": {
+        "type": "Array"
+      }
+    }
+  }
+}
