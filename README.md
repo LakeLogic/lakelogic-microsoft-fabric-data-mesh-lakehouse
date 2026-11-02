@@ -1,4 +1,4 @@
-# RideFlow: a governed data mesh on Microsoft Fabric
+# RideFlow: Data Platform Architecture on Microsoft Fabric
 
 **Build a decentralised Fabric lakehouse with shared governance.**
 
